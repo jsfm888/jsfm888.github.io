@@ -4,6 +4,59 @@
   
     
     <entry>
+      <title>linux-系统操作篇</title>
+      <link href="/archives/1a958436.html"/>
+      <url>/archives/1a958436.html</url>
+      
+        <content type="html"><![CDATA[<h4 id="打包压缩和解压缩"><a href="#打包压缩和解压缩" class="headerlink" title="打包压缩和解压缩"></a>打包压缩和解压缩</h4><ul><li>最早的Linux备份介质是磁带，使用额命令是tar</li><li>可以对打包后的磁带文件进行压缩存储，压缩的命令是<code>gzip</code>和<code>bzip2</code></li><li>经常使用的扩展名是 .tar.gz   tar.bz2  .tgz</li></ul><blockquote><p>tar命令后，c代表打包，f指定操作类型为文件，x表示解包</p></blockquote><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 将/etc下的文件打包成etc-backup.tar文件并存放在/temp下</span></span><br><span class="line">tar cf /temp/etc-backup.tar /etc </span><br><span class="line"><span class="section"># h参数表示以M为单位显示文件大小</span></span><br><span class="line">ls -lh etc-backup.tar</span><br><span class="line"></span><br><span class="line"><span class="section"># z 代表压缩成.gz格式的压缩包  j代表压缩成.bz2格式的压缩包</span></span><br><span class="line">tar czf /temp/etc-backup.tar.gz /etc</span><br><span class="line">tar cjf /temp/etc-backup.tar.bz2 /etc</span><br><span class="line"></span><br><span class="line"><span class="section"># 解包 到指定文件夹下  zxf表示.gz格式压缩包解压缩 jxf表示.bz2格式压缩包解压缩</span></span><br><span class="line">tar xf /temp/etc-backup.tar -C /root</span><br></pre></td></tr></table></figure><h4 id="Vim的四种模式"><a href="#Vim的四种模式" class="headerlink" title="Vim的四种模式"></a>Vim的四种模式</h4><h5 id="正常模式"><a href="#正常模式" class="headerlink" title="正常模式"></a>正常模式</h5><ol><li>切换到插入模式</li></ol><p><code>i</code>键进入插入模式，大写<code>i</code>或<code>shift + i </code>键进入插入模式并定位到光标所在行的首部</p><p><code>a</code>键进入插入模式并定位到光标所在位置的下一位，大写<code>a</code>或<code>shift + a</code>键进入插入模式并定位到光标所在行的尾部</p><p><code>o</code>键进入插入模式并定位到当前行的下一行，大写<code>o</code>或<code>shift + o</code>键进入插入模式并定位到当前行的上一行</p><ol start="2"><li>光标移动</li></ol><p>通过<code>hjkl</code>四个按键进行光标的移动，<code>h</code>向左，<code>l</code>向右，<code>j</code>向下，<code>k</code>向上</p><ol start="3"><li>常用操作</li></ol><ul><li><code>yy</code>复制当前行</li><li><code>nyy</code>复制n行</li><li><code>p</code>粘贴</li><li><code>y + $</code>复制当前光标到行尾的内容</li><li><code>dd</code>剪切当前行</li><li><code>d + $</code>剪切当前光标到行尾的内容</li><li><code>u</code>撤销</li><li><code>ctrl+r</code>重做（取消撤销）</li><li><code>x</code>删除单个字符</li><li><code>r + 新字符</code>替换掉旧字符</li><li><code>^</code>定位到行尾</li><li><code>$</code>定位到行首</li><li><code>gg</code>定位到第一行</li><li><code>shift + g</code>定位到最后一行</li></ul><h5 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h5><p>输入<code>:</code>进入命令模式，保存当前未命名文件输入<code>w /root/a.txt</code></p><ul><li><p><code>q!</code>不保存退出</p></li><li><p><code>wq</code>保存并退出</p></li><li><p><code>!</code>不退出的情况下临时执行系统命令 比如：<code>!ifconfig</code>查看ip地址</p></li><li><p><code>/ + 要搜索的内容</code> 进行指定内容的搜索 按<code>n</code>进行切换</p></li><li><p><code>s/old/new</code>进行内容的替换（只针对光标所在的行）</p></li><li><p><code>%s/old/new/g</code>进行批量替换（百分号表示针对该光标所在列）</p></li><li><p><code>set nu</code>显示行号    一直都显示行号可以在<code>/etc/vimrc</code>下添加<code>set nu</code></p></li><li><p><code>set nonu</code>不显示行号</p></li><li><p><code>set nohlsearch</code>取消高亮</p></li></ul><h4 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h4><h5 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h5><ol><li><code>useradd 用户名</code>添加新用户 家目录为<code>/home/用户名</code></li></ol><p>   <code>passwd + 用户名</code>给用户修改密码</p><p>   <code>useradd -g 组名 用户名</code> 添加新用户时指定所在组</p><p>   不指定用户组，默认生成一个同名用户组</p><ol start="2"><li><p><code>userdel 用户名</code> 删除指定用户 该方式不会删除用户家目录</p><p>加上<code>-r</code>选项，删除用户并删除用户家目录</p></li><li><p><code>usermod</code> 修改用户属性</p><p><code>usermod -d /home/w1 wilson</code>  <code>-d</code>选表示项修改用户的家目录</p><p><code>usermod -g 组名 用户名</code> 修改用户所在组</p></li><li><p><code>groupadd 组名</code> 添加用户组</p></li><li><p><code>groupdel 组名</code> 删除用户组</p></li><li><p><code>su - 用户名</code> 切换用户并进入该用户家目录</p></li></ol><h5 id="用户切换"><a href="#用户切换" class="headerlink" title="用户切换"></a>用户切换</h5><ul><li>su 切换用户</li><li>sudo 以其他用户身份执行命令</li></ul><p><code>root</code>用户执行<code>shutdown -h 30</code>半小时后自动关机，普通用户执行<code>shutdown -c</code>来取消该命令</p><p><code>root</code>用户需要将<code>shutdown -c</code>赋予普通用户</p><p>执行<code>visudo</code> 在末行添加<code>user1 ALL=/user/sbin/shutdown -c</code>，<code>user1</code>可以执行<code>shutdown -c</code>命令</p><h5 id="用户和用户组的配置文件"><a href="#用户和用户组的配置文件" class="headerlink" title="用户和用户组的配置文件"></a>用户和用户组的配置文件</h5><ul><li>&#x2F;etc&#x2F;passwd</li></ul><p>7个字段含义如下</p><p><img src="https://cdn.jsdelivr.net/gh/jsfm888/mypicgo/img/image-20220404142404212.png" alt="image-20220404142404212"></p><p>将<code>/bin/bash</code>改为<code>/sbin/nologin</code>后，该用户不能登录</p><ul><li>&#x2F;etc&#x2F;shadow</li></ul><p><img src="https://cdn.jsdelivr.net/gh/jsfm888/mypicgo/img/image-20220404143938436.png" alt="image-20220404143938436"></p><p>不同用户即使密码相同，加密后的密码显示也不一样</p><ul><li>&#x2F;etc&#x2F;group</li></ul><p><img src="https://cdn.jsdelivr.net/gh/jsfm888/mypicgo/img/image-20220404144258416.png" alt="image-20220404144258416"></p><h5 id="文件与目录权限表示方法"><a href="#文件与目录权限表示方法" class="headerlink" title="文件与目录权限表示方法"></a>文件与目录权限表示方法</h5><p><img src="https://cdn.jsdelivr.net/gh/jsfm888/mypicgo/img/image-20220404144553340.png" alt="image-20220404144553340"></p><ol><li>文件类型</li></ol><ul><li>—普通文件</li></ul><ul><li>d 目录文件</li><li>b 块特殊文件</li><li>c 字符特殊文件</li><li>l 符号链接</li><li>f 命名管道</li><li>s 套接字文件</li></ul><ol start="2"><li>字符权限表示方法</li></ol><ul><li>r 读</li><li>w 写</li><li>x 执行</li></ul><ol start="3"><li>数字权限表示方法</li></ol><ul><li>r 4</li><li>w 2</li><li>x 1</li></ul><p>文件权限的表示方法</p><ol start="4"><li>-rw-r-xr– 1 username groupname mtime filename</li></ol><p>rw- 文件属主的权限</p><p>r-x文件属组的权限</p><p>r–其他用户的权限</p><p>创建新文件有默认权限，根据umask值计算，属主和属组根据当前进程的用户来设定</p><ol start="5"><li>目录权限的表示方法</li></ol><ul><li>x 进入目录</li><li>rx 显示目录内的文件名</li><li>wx 修改目录内的文件名</li></ul><h5 id="修改权限命令"><a href="#修改权限命令" class="headerlink" title="修改权限命令"></a>修改权限命令</h5><p><code>chmod</code> 修改文件、目录权限</p><p><code>chown</code>更改属主、属组</p><p>以下为三个普通用户的信息和一个测试文件夹</p><p><img src="https://cdn.jsdelivr.net/gh/jsfm888/mypicgo/img/image-20220404150546440.png" alt="image-20220404150546440"></p><p><code>chown user1 /test</code>更改文件夹所属主</p><p><code>chown :group1 /test</code> 更改文件夹所属组</p><p><code>chown user1:group /test/afile</code> 更改文件所属主和所属组</p><p>设置权限</p><ul><li>chmod u+r user1</li><li>chmod g-w user1</li><li>chmod o+rwx user1</li><li>chmod u&#x3D;rwx user1</li><li>chmod a+r user1</li><li>chmod 664 user1</li><li>Chmod 777 user1</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vim </tag>
+            
+            <tag> 用户管理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git基础</title>
+      <link href="/archives/9891ebc8.html"/>
+      <url>/archives/9891ebc8.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>shell编程(1)</title>
+      <link href="/archives/a248376e.html"/>
+      <url>/archives/a248376e.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>自定义负载均衡策略实现金丝雀测试</title>
       <link href="/archives/82e3020b.html"/>
       <url>/archives/82e3020b.html</url>
